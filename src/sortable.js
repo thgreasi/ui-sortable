@@ -21,6 +21,18 @@ angular.module('ui.sortable', [])
                   return first;
               }
 
+              function wrapApply(func){
+                return function(e, ui){
+                  if (ui.item.sortable.resort || ui.item.sortable.relocate) {
+                    scope.$apply(function(){
+                      func(e, ui);
+                    });
+                  } else {
+                    func(e, ui);
+                  }
+                };
+              }
+
             var opts = {};
 
             var callbacks = {
@@ -29,12 +41,6 @@ angular.module('ui.sortable', [])
                 start:null,
                 stop:null,
                 update:null
-            };
-            
-            var apply = function(e, ui) {
-              if (ui.item.sortable.resort || ui.item.sortable.relocate) {
-                scope.$apply();
-              }
             };
 
             angular.extend(opts, uiSortableConfig);
@@ -97,7 +103,7 @@ angular.module('ui.sortable', [])
                           
                           if ( key === 'stop' ){
                               // call apply after stop
-                              value = combineCallbacks( value, apply );
+                              value = wrapApply(value);
                           }
                       }
 
@@ -111,7 +117,7 @@ angular.module('ui.sortable', [])
               });
               
               // call apply after stop
-              opts.stop = combineCallbacks( opts.stop, apply );
+              opts.stop = wrapApply(opts.stop);
 
               // Create sortable
 
