@@ -5,8 +5,8 @@
 */
 angular.module('ui.sortable', [])
   .value('uiSortableConfig',{})
-  .directive('uiSortable', [ 'uiSortableConfig',
-        function(uiSortableConfig) {
+  .directive('uiSortable', [ 'uiSortableConfig', '$setTimeout',
+        function(uiSortableConfig, $setTimeout) {
         return {
           require: '?ngModel',
           link: function(scope, element, attrs, ngModel) {
