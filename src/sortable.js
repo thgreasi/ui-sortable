@@ -5,8 +5,8 @@
 */
 angular.module('ui.sortable', [])
   .value('uiSortableConfig',{})
-  .directive('uiSortable', [ 'uiSortableConfig', '$setTimeout',
-        function(uiSortableConfig, $setTimeout) {
+  .directive('uiSortable', [ 'uiSortableConfig', '$timeout',
+        function(uiSortableConfig, $timeout) {
         return {
           require: '?ngModel',
           link: function(scope, element, attrs, ngModel) {
@@ -39,7 +39,7 @@ angular.module('ui.sortable', [])
 
             angular.extend(opts, uiSortableConfig);
 
-            $setTimeout(function() {
+            $timeout(function() {
               if (ngModel) {
 
                 ngModel.$render = function() {
