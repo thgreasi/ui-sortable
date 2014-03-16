@@ -4,6 +4,34 @@
 'use strict';
 
 module.exports = function(config) {
+  function getBowerPackageFilePaths (packageName) {
+    var fs = require('fs');
+
+    var bowerComponentsPath = 'bower_components/';
+
+    var packageBowerFilePath = bowerComponentsPath + packageName + '/bower.json';
+
+    var files;
+    try {
+      var packageBowerFile = fs.readFileSync(packageBowerFilePath);
+      var packageBowerJson = JSON.parse(packageBowerFile);
+      if (typeof packageBowerJson.main === 'string') {
+        files = [ packageBowerJson.main ];
+      } else {
+        files = packageBowerJson.main;
+      }
+    } catch (ex) {
+      files = [ packageName.replace(/-/g, '.') + '.js' ];
+    }
+
+    return files.map(function (packageFile) {
+      return bowerComponentsPath + packageName + '/' + packageFile;
+    })
+    .map(function (x) {
+      return x.replace(/\/.\//g, '/');
+    });
+  }
+
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -16,17 +44,22 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/jquery/dist/jquery.js',
-      'bower_components/jquery-simulate/jquery.simulate.js',
+      'jquery',
+      'jquery-simulate',
+      'jquery-ui',
+      'angular',
+      'angular-mocks'
+    ]
+    .map(getBowerPackageFilePaths)
+    .reduce(function(a, b) {
+      return a.concat(b);
+    }).concat([
       'test/libs/jquery.simulate.dragandrevert.js',
-      'bower_components/jquery-ui/ui/jquery-ui.js',
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
       'src/sortable.js',
       'test/sortable.test-helper.js',
       'test/sortable.test-directives.js',
       'test/*.spec.js'
-    ],
+    ]),
 
 
     // list of files to exclude
