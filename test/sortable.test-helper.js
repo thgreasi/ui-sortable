@@ -18,9 +18,17 @@ angular.module('ui.sortable.testHelper', [])
       return [];
     }
 
+    function arrayItemsPropertyValue (array, propertyName) {
+      return array.map(function (item) {
+        console.log(item, propertyName);
+        return item[propertyName];
+      });
+    }
+
     return {
       EXTRA_DY_PERCENTAGE: EXTRA_DY_PERCENTAGE,
       listContent: listContent,
-      listInnerContent: listInnerContent
+      listInnerContent: listInnerContent,
+      arrayItemsPropertyValue: arrayItemsPropertyValue
     };
   });

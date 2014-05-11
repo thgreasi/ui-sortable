@@ -28,6 +28,42 @@ angular.module('ui.sortable', [])
             return helperOption === 'clone' || typeof helperOption === 'function';
           }
 
+          function applySorting () {
+            var firstChild = element.children(':eq(0)');
+            if (ngModel.$modelValue &&
+                ngModel.$modelValue.length &&
+                firstChild) {
+              var match = element.children(':eq(0)').attr('ng-repeat')
+                .match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
+              if (match) {
+                var rhs = match[2];
+                var sortedModel = scope.$eval(rhs);
+
+                Array.prototype.splice.apply(
+                  ngModel.$modelValue,
+                  [0, ngModel.$modelValue.length]
+                  .concat(sortedModel));
+              }
+            }
+          }
+
+          function updateSortingProperty () {
+            var match = element.children(':eq(0)').attr('ng-repeat')
+              .match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
+            if (match) {
+              var rhs = match[2];
+              match = rhs.match(/^\s*\s+?\s?|\s?([\S]+?):\s?'([\s\S]+?)'\s?$/);
+              if (match) {
+                rhs = match[2];
+                for (var i = 0, len = ngModel.$modelValue.length; i < len; i++) {
+                  var modelVal = ngModel.$modelValue[i];
+                  modelVal[rhs] = i;
+                }
+              }
+            }
+          }
+
+
           var opts = {};
 
           var callbacks = {
@@ -50,6 +86,7 @@ angular.module('ui.sortable', [])
             // When we add or remove elements, we need the sortable to 'refresh'
             // so it can find the new/removed elements.
             scope.$watch(attrs.ngModel+'.length', function() {
+              applySorting();
               // Timeout to let ng-repeat modify the DOM
               $timeout(function() {
                 // ensure that the jquery-ui-sortable widget instance
@@ -156,6 +193,8 @@ angular.module('ui.sortable', [])
                   ngModel.$modelValue.splice(
                     ui.item.sortable.dropindex, 0,
                     ngModel.$modelValue.splice(ui.item.sortable.index, 1)[0]);
+
+                  updateSortingProperty();
                 });
               } else {
                 // if the item was not moved, then restore the elements
