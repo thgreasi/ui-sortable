@@ -5,7 +5,12 @@ This directive allows you to sort an array with drag & drop.
 ## Requirements
 
 - JQuery
-- JQueryUI
+- JQueryUI (1.9+)
+- AngularJS
+
+**Notes:**
+> JQuery must be included before AngularJS.  
+> JQueryUI dependecies include [core](http://api.jqueryui.com/category/ui-core/), [widget](http://api.jqueryui.com/jQuery.widget/), [mouse](http://api.jqueryui.com/mouse/) & [sortable](http://api.jqueryui.com/sortable/). Creating a [custom build](http://jqueryui.com/download/#!version=1.10&components=1110000010000000000000000000000000) will [greatly reduce](https://github.com/angular-ui/ui-sortable/issues/154#issuecomment-40279430) the required file size. ([CDN](http://www.jsdelivr.com/) links for comparison: [full](http://cdn.jsdelivr.net/g/jquery.ui@1.10) vs  [minimal](http://cdn.jsdelivr.net/g/jquery.ui@1.10%28jquery.ui.core.min.js+jquery.ui.widget.min.js+jquery.ui.mouse.min.js+jquery.ui.sortable.min.js%29))
 
 ## Usage
 
@@ -35,7 +40,7 @@ Apply the directive to your form elements:
 * `ui-sortable` element should only contain one `ng-repeat` and not any other elements (above or below).  
   Otherwise the index matching of the generated DOM elements and the `ng-model`'s items will break.  
   **In other words: The items of `ng-model` must match the indexes of the generated DOM elements.**
-* `ui-sortable` lists containing many 'types' of items can be implemented by using [dynamic template loading with ng-include](http://stackoverflow.com/questions/14607879/angularjs-load-dynamic-template-html-within-directive/14621927#14621927), to determine how each model item should be rendered.
+* `ui-sortable` lists containing many 'types' of items can be implemented by using dynamic template loading [with ng-include](http://stackoverflow.com/questions/14607879/angularjs-load-dynamic-template-html-within-directive/14621927#14621927) or a [loader directive](https://gist.github.com/thgreasi/7152499c0e91973c4820), to determine how each model item should be rendered.
 
 ### Options
 
@@ -59,6 +64,9 @@ myAppModule.controller('MyController', function($scope) {
 </ul>
 ```
 
+When using event callbacks ([start](http://api.jqueryui.com/sortable/#event-start)/[update](http://api.jqueryui.com/sortable/#event-update)/[stop](http://api.jqueryui.com/sortable/#event-stop)...), avoid manipulating DOM elements (especially the one with the ng-repeat attached).
+The suggested pattern is to use callbacks for emmiting events and altering the scope (inside the 'Angular world').
+
 #### Canceling
 
 Inside the `update` callback, you can check the item that is dragged and cancel the sorting.
@@ -73,16 +81,18 @@ $scope.sortableOptions = {
 };
 ```
 
-**Note:** `update` occurs before any model/scope changes but after the DOM position has been updated.
+**Notes:**
+* `update` is the appropriate place to cancel a sorting, since it occurs before any model/scope changes but after the DOM position has been updated.
 So `ui.item.scope` and the directive's `ng-model`, are equal to the scope before the drag start.
+* To [cancel a sorting between connected lists](https://github.com/angular-ui/ui-sortable/issues/107#issuecomment-33633638), `cancel` should be called inside the `update` callback of the originating list.
 
 ## Examples
 
 - [Simple Demo](http://codepen.io/thgreasi/pen/jlkhr)
-- [Connected Lists](http://codepen.io/thgreasi/pen/uFile)
-- [Filtering](http://codepen.io/thgreasi/pen/mzGbq) [details #113](https://github.com/angular-ui/ui-sortable/issues/113)
-- [Ordering](http://plnkr.co/edit/XPUzJjdvwE0QWQ6py6mQ?p=preview) [details #70](https://github.com/angular-ui/ui-sortable/issues/70)
-- [Cloning](http://codepen.io/thgreasi/pen/qmvhG) [details #139](https://github.com/angular-ui/ui-sortable/issues/139)
+- [Connected Lists](http://codepen.io/thgreasi/pen/uFile) & [Connected Lists Canceling](http://codepen.io/thgreasi/pen/IdvFc)
+- [Filtering](http://codepen.io/thgreasi/pen/mzGbq) ([details](https://github.com/angular-ui/ui-sortable/issues/113))
+- [Ordering](http://plnkr.co/edit/XPUzJjdvwE0QWQ6py6mQ?p=preview) ([details](https://github.com/angular-ui/ui-sortable/issues/70))
+- [Cloning](http://codepen.io/thgreasi/pen/qmvhG) ([details](https://github.com/angular-ui/ui-sortable/issues/139))
 
 ## Reporting Issues
 
