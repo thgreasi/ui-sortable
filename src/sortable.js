@@ -12,6 +12,9 @@ angular.module('ui.sortable', [])
         require: '?ngModel',
         link: function(scope, element, attrs, ngModel) {
           var savedNodes;
+          // workaround so that monkey patching angular.element
+          // works when jquery.noconflict(true) is used
+          element = angular.element(element);
 
           function combineCallbacks(first,second){
             if(second && (typeof second === 'function')) {
