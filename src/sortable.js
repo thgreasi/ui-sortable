@@ -49,6 +49,13 @@ angular.module('ui.sortable', [])
             return;
           }
 
+          // code covarage shows that this never actually runs
+          scope.$on('$destroy', function() {
+            if (!!element.data('ui-sortable')) {
+              element.sortable('destroy');
+            }
+          });
+
           if (ngModel) {
 
             // When we add or remove elements, we need the sortable to 'refresh'
