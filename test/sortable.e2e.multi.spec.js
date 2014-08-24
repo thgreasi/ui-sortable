@@ -1,3 +1,4 @@
+/* global document:true */
 'use strict';
 
 describe('uiSortable', function() {
@@ -20,7 +21,7 @@ describe('uiSortable', function() {
     var host;
 
     beforeEach(inject(function() {
-      host = $('<div id="test-host"></div>');
+      host = angular.element('<div id="test-host"></div>');
       angular.element(document.body).append(host);
     }));
 
@@ -58,8 +59,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -99,8 +100,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop).map(parseFalsyValue));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom).map(parseFalsyValue));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -136,8 +137,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -173,8 +174,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -210,8 +211,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -248,8 +249,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -287,8 +288,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -327,8 +328,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -366,8 +367,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -406,8 +407,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 
@@ -465,8 +466,8 @@ describe('uiSortable', function() {
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        $(elementTop).remove();
-        $(elementBottom).remove();
+        angular.element(elementTop).remove();
+        angular.element(elementBottom).remove();
       });
     });
 

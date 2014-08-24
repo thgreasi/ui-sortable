@@ -1,3 +1,4 @@
+/* global document:true */
 'use strict';
 
 describe('uiSortable', function() {
@@ -18,7 +19,7 @@ describe('uiSortable', function() {
     var host;
 
     beforeEach(inject(function() {
-      host = $('<div id="test-host"></div>');
+      host = angular.element('<div id="test-host"></div>');
       angular.element(document.body).append(host);
     }));
 
@@ -62,7 +63,7 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        $(element).remove();
+        angular.element(element).remove();
       });
     });
 
@@ -101,7 +102,7 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        $(element).remove();
+        angular.element(element).remove();
       });
     });
 
@@ -130,8 +131,8 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(listContent(element));
         expect($rootScope.logs).toEqual(listContent(logsElement));
 
-        $(element).remove();
-        $(logsElement).remove();
+        angular.element(element).remove();
+        angular.element(logsElement).remove();
       });
     });
 
@@ -161,8 +162,8 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(listContent(element));
         expect($rootScope.logs).toEqual(listContent(logsElement));
 
-        $(element).remove();
-        $(logsElement).remove();
+        angular.element(element).remove();
+        angular.element(logsElement).remove();
       });
     });
 
@@ -184,7 +185,7 @@ describe('uiSortable', function() {
 
         expect($rootScope.opts.create).toHaveBeenCalled();
 
-        $(element).remove();
+        angular.element(element).remove();
       });
     });
 

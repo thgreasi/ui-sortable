@@ -1,3 +1,4 @@
+/* global document:true */
 'use strict';
 
 describe('uiSortable', function() {
@@ -20,7 +21,7 @@ describe('uiSortable', function() {
     var host;
 
     beforeEach(inject(function() {
-      host = $('<div id="test-host"></div>');
+      host = angular.element('<div id="test-host"></div>');
       angular.element(document.body).append(host);
     }));
 
@@ -58,7 +59,7 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
         expect($rootScope.items).toEqual(listInnerContent(element));
 
-        $(element).remove();
+        angular.element(element).remove();
       });
     });
 
@@ -91,7 +92,7 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
         expect($rootScope.items).toEqual(listInnerContent(element));
 
-        $(element).remove();
+        angular.element(element).remove();
       });
     });
 

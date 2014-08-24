@@ -1,3 +1,4 @@
+/* global document:true */
 'use strict';
 
 describe('uiSortable', function() {
@@ -19,7 +20,7 @@ describe('uiSortable', function() {
     var host;
 
     beforeEach(inject(function() {
-      host = $('<div id="test-host"></div>');
+      host = angular.element('<div id="test-host"></div>');
       angular.element(document.body).append(host);
     }));
 
@@ -118,7 +119,7 @@ describe('uiSortable', function() {
         expect($rootScope.items[1].items.map(function(x){ return x.text; }))
           .toEqual(listInnerContent(elementTree.find('.innerList:eq(1)'), '.lvl2ItemContent'));
 
-        $(elementTree).remove();
+        angular.element(elementTree).remove();
       });
     });
 

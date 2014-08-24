@@ -17,7 +17,9 @@ angular.module('ui.sortable.testHelper', [])
       }
 
       if (list && list.length) {
-        return list.children().map(function(){ return $(this).find(contentSelector).html(); }).toArray();
+        return list.children().map(function() {
+          return angular.element(this).find(contentSelector).html();
+        }).toArray();
       }
       return [];
     }
