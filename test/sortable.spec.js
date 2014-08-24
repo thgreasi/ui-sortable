@@ -39,7 +39,7 @@ describe('uiSortable', function() {
     it('should log an error about jQuery dependency', function() {
       inject(function($compile, $rootScope, $log) {
         var oldAngularElementFn = angular.element.fn;
-        var mockJQliteFn = $({}, angular.element.fn, true);
+        var mockJQliteFn = angular.copy(angular.element.fn);
         mockJQliteFn.jquery = null;
         angular.element.fn = mockJQliteFn;
 
