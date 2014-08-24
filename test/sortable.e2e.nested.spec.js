@@ -20,7 +20,7 @@ describe('uiSortable', function() {
 
     beforeEach(inject(function() {
       host = $('<div id="test-host"></div>');
-      $('body').append(host);
+      angular.element(document.body).append(host);
     }));
 
     afterEach(function() {
@@ -71,7 +71,7 @@ describe('uiSortable', function() {
 
         // this should drag the item out of the list and
         // the item should return back to its original position
-        li1 = elementTree.find('.innerList:last').find('li:last');
+        li1 = elementTree.find('.innerList').eq(-1).find('li').eq(-1);
         li1.simulate('drag', { dx: -200, moves: 30 });
         expect($rootScope.items.map(function(x){ return x.text; }))
           .toEqual(['Item 1', 'Item 2']);
@@ -88,8 +88,8 @@ describe('uiSortable', function() {
 
         // this should drag the item from the outter list and
         // drop it to the inner list
-        li1 = elementTree.find('> li:first');
-        li2 = elementTree.find('.innerList:last').find('li:last');
+        li1 = elementTree.children().eq(0);
+        li2 = elementTree.find('.innerList').eq(-1).find('li').eq(-1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: 10, extrady: -5 });
         expect($rootScope.items.map(function(x){ return x.text; }))
           .toEqual(['Item 2']);
@@ -102,8 +102,8 @@ describe('uiSortable', function() {
 
         // this should drag the item from the inner list and
         // drop it to the outter list
-        li1 = elementTree.find('.innerList:last').find('li:last');
-        li2 = elementTree.find('> li:first');
+        li1 = elementTree.find('.innerList').eq(-1).find('li').eq(-1);
+        li2 = elementTree.children().eq(0);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -10, extrady: -6 });
         expect($rootScope.items.map(function(x){ return x.text; }))
           .toEqual(['Item 2.2', 'Item 2']);

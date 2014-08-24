@@ -20,7 +20,7 @@ describe('uiSortable', function() {
 
     beforeEach(inject(function() {
       host = $('<div id="test-host"></div>');
-      $('body').append(host);
+      angular.element(document.body).append(host);
     }));
 
     afterEach(function() {
@@ -38,13 +38,13 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(1)');
+        var li = element.children().eq(1);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Three', 'Two']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = -(1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
@@ -72,25 +72,25 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(2)');
+        var li = element.children().eq(2);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['One', 'Two', 'Three', 'Four']);
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['One', 'Three', 'Four', 'Two']);
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
 
-        li = element.find(':eq(2)');
+        li = element.children().eq(2);
         dy = -(2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['Four', 'One', 'Three', 'Two']);
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
 
-        li = element.find(':eq(3)');
+        li = element.children().eq(3);
         dy = -(2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['Four', 'Two', 'One', 'Three']);
@@ -115,13 +115,13 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(1)');
+        var li = element.children().eq(1);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Three', 'Two']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = -(1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
@@ -144,13 +144,13 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(1)');
+        var li = element.children().eq(1);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Three', 'Two']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = -(1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
@@ -173,25 +173,25 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -324,13 +324,13 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(1)');
+        var li = element.children().eq(1);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Three', 'Two']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = -(1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
@@ -353,25 +353,25 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -395,31 +395,31 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -444,13 +444,13 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(1)');
+        var li = element.children().eq(1);
         var dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Three', 'Two']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = -(1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Three', 'One', 'Two']);
@@ -475,25 +475,25 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -519,31 +519,31 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -568,25 +568,25 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
@@ -612,31 +612,31 @@ describe('uiSortable', function() {
 
         host.append(element);
 
-        var li = element.find(':eq(0)');
+        var li = element.children().eq(0);
         var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['One', 'Two', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(0)');
+        li = element.children().eq(0);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('dragAndRevert', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'Three', 'One']);
         expect($rootScope.items).toEqual(listContent(element));
 
-        li = element.find(':eq(1)');
+        li = element.children().eq(1);
         dy = (1 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
         li.simulate('drag', { dy: dy });
         expect($rootScope.items).toEqual(['Two', 'One', 'Three']);

@@ -21,7 +21,7 @@ describe('uiSortable', function() {
 
     beforeEach(inject(function() {
       host = $('<div id="test-host"></div>');
-      $('body').append(host);
+      angular.element(document.body).append(host);
     }));
 
     afterEach(function() {
@@ -42,16 +42,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -83,16 +83,16 @@ describe('uiSortable', function() {
           return value;
         }
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 0, 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop).map(parseFalsyValue));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom).map(parseFalsyValue));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 0, 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -120,16 +120,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -157,16 +157,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -194,16 +194,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -232,16 +232,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -271,16 +271,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -311,16 +311,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -350,16 +350,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -390,16 +390,16 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(0)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(0);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
@@ -433,32 +433,32 @@ describe('uiSortable', function() {
 
         host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
 
-        var li1 = elementTop.find(':eq(1)');
-        var li2 = elementBottom.find(':eq(0)');
+        var li1 = elementTop.children().eq(1);
+        var li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top One', 'Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top One', 'Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementTop.find(':eq(0)');
-        li2 = elementBottom.find(':eq(0)');
+        li1 = elementTop.children().eq(0);
+        li2 = elementBottom.children().eq(0);
         simulateElementDrag(li1, li2, 'below');
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
-        li1 = elementBottom.find(':eq(1)');
-        li2 = elementTop.find(':eq(1)');
+        li1 = elementBottom.children().eq(1);
+        li2 = elementTop.children().eq(1);
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
         expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
