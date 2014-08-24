@@ -97,7 +97,7 @@ module.exports = function(grunt) {
       coverage: {
         configFile: 'test/karma.conf.js',
         reporters: ['progress', 'coverage'],
-        preprocessors: { 'src/*.js': ['coverage'] },
+        preprocessors: { 'src/**/*.js': ['coverage'] },
         coverageReporter: {
           reporters: [{
             type: 'text'
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 
     jshint: {
       src: {
-        files:{ src : ['src/**/*.js', 'demo/**/*.js'] },
+        files:{ src : ['src/*.js', 'demo/**/*.js'] },
         options: { jshintrc: '.jshintrc' }
       },
       test: {

@@ -14,6 +14,15 @@ module.exports = function(config) {
     overrides: bowerOverrides
   }).js;
 
+  devJSDependencies = [
+    'bower_components/jquery/dist/jquery.js',
+    'bower_components/angular/angular.js',
+    // 'src/jq/jquery.js',
+    // 'bower_components/jquery-ui/jquery-ui.js',
+    'bower_components/angular-mocks/angular-mocks.js',
+    'bower_components/jquery-simulate/jquery.simulate.js'
+  ];
+
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -26,8 +35,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: devJSDependencies.concat([
-      'test/libs/jquery.simulate.dragandrevert.js',
+      'src/jq/ui.core.js',
+      'src/jq/ui.widget.js',
+      'src/jq/ui.mouse.js',
+      'src/jq/ui.sortable.js',
       'src/sortable.js',
+      'test/libs/jquery.simulate.dragandrevert.js',
       'test/sortable.test-helper.js',
       'test/sortable.test-directives.js',
       'test/*.spec.js',
