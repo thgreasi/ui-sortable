@@ -143,7 +143,11 @@ angular.module('ui.sortable', [])
               // we can restore it after sortable has messed it up.
               // This is inside activate (instead of start) in order to save
               // both lists when dragging between connected lists.
-              savedNodes = element.contents();
+              if (element[0] === ui.item.sortable.source[0] || angular.element(element).find(e.target).length) {
+                savedNodes = ui.item.sortable.source.contents();
+              } else {
+                savedNodes = element.contents();
+              }
 
               // If this list has a placeholder (the connected lists won't),
               // don't inlcude it in saved nodes.
@@ -209,7 +213,12 @@ angular.module('ui.sortable', [])
                 // (which is placed last). That way it will be garbage collected.
                 savedNodes = savedNodes.not(savedNodes.last());
               }
-              savedNodes.appendTo(element);
+
+              if (!ui.item.sortable.received) {
+                savedNodes.appendTo(ui.item.sortable.source);
+              } else {
+                savedNodes.appendTo(ui.item.sortable.droptarget);
+              }
 
               // If this is the target connected list then
               // it's safe to clear the restored nodes since:
@@ -249,7 +258,7 @@ angular.module('ui.sortable', [])
                 // so that the ngRepeat's comment are correct.
                 if ((!('dropindex' in ui.item.sortable) || ui.item.sortable.isCanceled()) &&
                     !hasSortingHelper(element, ui)) {
-                  savedNodes.appendTo(element);
+                  savedNodes.appendTo(ui.item.sortable.source);
                 }
               }
 
