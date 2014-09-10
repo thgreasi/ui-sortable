@@ -255,10 +255,12 @@ angular.module('ui.sortable', [])
               return inner;
             };
 
-            scope.$watch(attrs.uiSortable, function(newVal /*, oldVal*/) {
+            scope.$watch(attrs.uiSortable, function(newVal , oldVal) {
               // ensure that the jquery-ui-sortable widget instance
               // is still bound to the directive's element
               if (!!element.data('ui-sortable')) {
+                var sortableNeedsRefresh = false;
+
                 angular.forEach(newVal, function(value, key) {
                   // if it's a custom option of the directive,
                   // handle it approprietly
@@ -284,10 +286,18 @@ angular.module('ui.sortable', [])
                   } else if (wrappers[key]) {
                     value = wrappers[key](value);
                   }
+
+                  if (key === 'items' && newVal[key] !== oldVal[key]) {
+                    sortableNeedsRefresh = true;
+                  }
                   
                   opts[key] = value;
                   element.sortable('option', key, value);
                 });
+
+                if (sortableNeedsRefresh) {
+                  element.sortable('refresh');
+                }
               }
             }, true);
 

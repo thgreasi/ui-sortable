@@ -102,6 +102,58 @@ describe('uiSortable', function() {
       });
     });
 
+    it('should work when updating the items option', function() {
+      inject(function($compile, $rootScope) {
+        var element;
+        element = $compile('<ul ui-sortable="opts" ng-model="items"><li ng-repeat="item in items" id="s-{{$index}}" ng-class="{ sortable: item.sortable }">{{ item.text }}</li></ul>')($rootScope);
+        $rootScope.$apply(function() {
+          $rootScope.opts = {
+            items:'> *'
+          };
+          $rootScope.items = [
+            { text: 'One', sortable: true },
+            { text: 'Two', sortable: true },
+            { text: 'Three', sortable: false },
+            { text: 'Four', sortable: true }
+          ];
+        });
+
+        host.append(element);
+
+        var li = element.find(':eq(1)');
+        var dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
+        li.simulate('drag', { dy: dy });
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['One', 'Three', 'Four', 'Two']);
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
+
+        $rootScope.$apply(function() {
+          $rootScope.opts = {
+            items:'> :not(.sortable)'
+          };
+        });
+
+        li = element.find(':eq(1)');
+        dy = (2 + EXTRA_DY_PERCENTAGE) * li.outerHeight();
+        li.simulate('drag', { dy: dy });
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['One', 'Three', 'Four', 'Two']);
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
+
+        $rootScope.$apply(function() {
+          $rootScope.opts = {
+            items:'> .sortable'
+          };
+        });
+
+        li = element.find(':eq(1)');
+        dy = (1+ EXTRA_DY_PERCENTAGE) * li.outerHeight();
+        li.simulate('drag', { dy: dy });
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(['One', 'Three', 'Four', 'Two']);
+        expect($rootScope.items.map(function(x){ return x.text; })).toEqual(listContent(element));
+
+        $(element).remove();
+      });
+    });
+
     it('should work when "placeholder" option is used', function() {
       inject(function($compile, $rootScope) {
         var element;
