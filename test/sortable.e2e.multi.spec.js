@@ -181,8 +181,8 @@ describe('uiSortable', function() {
     it('should work when "helper: clone" option is used', function() {
       inject(function($compile, $rootScope) {
         var elementTop, elementBottom;
-        elementTop = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsTop"><li ng-repeat="item in itemsTop" id="s-top-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
-        elementBottom = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsBottom"><li ng-repeat="item in itemsBottom" id="s-bottom-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
+        elementTop = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsTop"><li ng-repeat="item in itemsTop track by $index" id="s-top-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
+        elementBottom = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsBottom"><li ng-repeat="item in itemsBottom track by $index" id="s-bottom-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
         $rootScope.$apply(function() {
           $rootScope.itemsTop = ['Top One', 'Top Two', 'Top Three'];
           $rootScope.itemsBottom = ['Bottom One', 'Bottom Two', 'Bottom Three'];
@@ -197,7 +197,7 @@ describe('uiSortable', function() {
         var li1 = elementTop.find(':eq(0)');
         var li2 = elementBottom.find(':eq(0)');
         simulateElementDrag(li1, li2, 'below');
-        expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
+        expect($rootScope.itemsTop).toEqual(['Top One', 'Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
@@ -205,8 +205,8 @@ describe('uiSortable', function() {
         li1 = elementBottom.find(':eq(1)');
         li2 = elementTop.find(':eq(1)');
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
-        expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
-        expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
+        expect($rootScope.itemsTop).toEqual(['Top One', 'Top One', 'Top Two', 'Top Three']);
+        expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 
@@ -218,8 +218,8 @@ describe('uiSortable', function() {
     it('should work when "placeholder" and "helper: clone" options are used', function() {
       inject(function($compile, $rootScope) {
         var elementTop, elementBottom;
-        elementTop = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsTop"><li ng-repeat="item in itemsTop" id="s-top-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
-        elementBottom = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsBottom"><li ng-repeat="item in itemsBottom" id="s-bottom-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
+        elementTop = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsTop"><li ng-repeat="item in itemsTop track by $index" id="s-top-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
+        elementBottom = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsBottom"><li ng-repeat="item in itemsBottom track by $index" id="s-bottom-{{$index}}" class="sortable-item">{{ item }}</li></ul>')($rootScope);
         $rootScope.$apply(function() {
           $rootScope.itemsTop = ['Top One', 'Top Two', 'Top Three'];
           $rootScope.itemsBottom = ['Bottom One', 'Bottom Two', 'Bottom Three'];
@@ -235,7 +235,7 @@ describe('uiSortable', function() {
         var li1 = elementTop.find(':eq(0)');
         var li2 = elementBottom.find(':eq(0)');
         simulateElementDrag(li1, li2, 'below');
-        expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
+        expect($rootScope.itemsTop).toEqual(['Top One', 'Top Two', 'Top Three']);
         expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
@@ -243,8 +243,8 @@ describe('uiSortable', function() {
         li1 = elementBottom.find(':eq(1)');
         li2 = elementTop.find(':eq(1)');
         simulateElementDrag(li1, li2, { place: 'above', extradx: -20, extrady: -10 });
-        expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
-        expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
+        expect($rootScope.itemsTop).toEqual(['Top One', 'Top One', 'Top Two', 'Top Three']);
+        expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
         expect($rootScope.itemsTop).toEqual(listContent(elementTop));
         expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
 

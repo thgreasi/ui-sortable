@@ -207,8 +207,12 @@ angular.module('ui.sortable', [])
               // so the next list can retrive it
               if (!ui.item.sortable.isCanceled()) {
                 scope.$apply(function () {
-                  ui.item.sortable.moved = ngModel.$modelValue.splice(
-                    ui.item.sortable.index, 1)[0];
+                  if (element.sortable('option', 'helper') === 'clone') {
+                    ui.item.sortable.moved = angular.copy(ngModel.$modelValue[ui.item.sortable.index]);
+                  } else {
+                    ui.item.sortable.moved = ngModel.$modelValue.splice(
+                      ui.item.sortable.index, 1)[0];
+                  }
                 });
               }
             };
