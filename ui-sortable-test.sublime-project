@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	],
+	"settings":
+	{
+		"typescript":
+		{
+			"roots":
+			[
+				"./demo/demo.ts"
+			]
+		}
+	}
+}
