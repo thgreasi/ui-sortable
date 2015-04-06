@@ -12,12 +12,13 @@ describe('uiSortable', function() {
   beforeEach(module('ui.sortable'));
   beforeEach(module('ui.sortable.testHelper'));
 
-  var EXTRA_DY_PERCENTAGE, listContent, listInnerContent;
+  var EXTRA_DY_PERCENTAGE, listContent, listInnerContent, simulateElementDrag;
 
   beforeEach(inject(function (sortableTestHelper) {
     EXTRA_DY_PERCENTAGE = sortableTestHelper.EXTRA_DY_PERCENTAGE;
     listContent = sortableTestHelper.listContent;
     listInnerContent = sortableTestHelper.listInnerContent;
+    simulateElementDrag = sortableTestHelper.simulateElementDrag;
   }));
 
   describe('Drag & Drop simulation, when there are extra elements', function() {
@@ -708,6 +709,56 @@ describe('uiSortable', function() {
         expect($rootScope.items).toEqual(listContent(element));
 
         $(element).remove();
+      });
+    });
+
+    describe('Multiple sortables', function() {
+      it('should work when "placeholder" and "helper: function" options are used', function() {
+        inject(function($compile, $rootScope) {
+          var elementTop, elementBottom;
+          elementTop = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsTop"><li>extra element</li><li ng-repeat="item in itemsTop" id="s-top-{{$index}}" class="sortable-item">{{ item }}</li><li>extra element</li></ul>')($rootScope);
+          elementBottom = $compile('<ul ui-sortable="opts" class="cross-sortable" ng-model="itemsBottom"><li>extra element</li><li ng-repeat="item in itemsBottom" id="s-bottom-{{$index}}" class="sortable-item">{{ item }}</li><li>extra element</li></ul>')($rootScope);
+          $rootScope.$apply(function() {
+            $rootScope.itemsTop = ['Top One', 'Top Two', 'Top Three'];
+            $rootScope.itemsBottom = ['Bottom One', 'Bottom Two', 'Bottom Three'];
+            $rootScope.opts = {
+              helper: function (e, item) {
+                return item.clone().text('helper');
+              },
+              placeholder: 'sortable-item-placeholder',
+              connectWith: '.cross-sortable'
+            };
+          });
+
+          host.append(elementTop).append(elementBottom).append('<div class="clear"></div>');
+
+          var li1 = elementTop.find(':eq(1)');
+          var li2 = elementBottom.find(':eq(1)');
+          simulateElementDrag(li1, li2, { place: 'below', action: 'dragAndRevert' });
+          expect($rootScope.itemsTop).toEqual(['Top One', 'Top Two', 'Top Three']);
+          expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
+          expect($rootScope.itemsTop).toEqual(listContent(elementTop));
+          expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
+
+          li1 = elementTop.find(':eq(1)');
+          li2 = elementBottom.find(':eq(1)');
+          simulateElementDrag(li1, li2, 'below');
+          expect($rootScope.itemsTop).toEqual(['Top Two', 'Top Three']);
+          expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Top One', 'Bottom Two', 'Bottom Three']);
+          expect($rootScope.itemsTop).toEqual(listContent(elementTop));
+          expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
+
+          li1 = elementBottom.find(':eq(2)');
+          li2 = elementTop.find(':eq(2)');
+          simulateElementDrag(li1, li2, { place: 'above', extradx: -22, extrady: -12 });
+          expect($rootScope.itemsTop).toEqual(['Top Two', 'Top One', 'Top Three']);
+          expect($rootScope.itemsBottom).toEqual(['Bottom One', 'Bottom Two', 'Bottom Three']);
+          expect($rootScope.itemsTop).toEqual(listContent(elementTop));
+          expect($rootScope.itemsBottom).toEqual(listContent(elementBottom));
+
+          $(elementTop).remove();
+          $(elementBottom).remove();
+        });
       });
     });
 
