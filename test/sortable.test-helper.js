@@ -77,7 +77,11 @@ angular.module('ui.sortable.testHelper', [])
       listContent: listContent,
       listInnerContent: listInnerContent,
       simulateElementDrag: simulateElementDrag,
-      hasUndefinedProperties: hasUndefinedProperties
+      hasUndefinedProperties: hasUndefinedProperties,
+      extraElements: {
+        beforeLiElement: '<li>extra element</li>',
+        afterLiElement: '<li>extra element</li>'
+      }
     };
   })
   .controller('dummyController', function ($scope) {
