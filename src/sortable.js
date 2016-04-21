@@ -103,7 +103,7 @@ angular.module('ui.sortable', [])
                   }
                   
                   if (!defaultOptions) {
-                    defaultOptions = angular.element.ui.sortable().options;
+                    defaultOptions = jQuery.ui.sortable().options;
                   }
                   var defaultValue = defaultOptions[key];
                   defaultValue = patchSortableOption(key, defaultValue);
@@ -154,7 +154,7 @@ angular.module('ui.sortable', [])
               var result = placeholder.element();
               // workaround for jquery ui 1.9.x,
               // not returning jquery collection
-              result = angular.element(result);
+              result = jQuery(result);
               return result;
             }
             return null;
@@ -237,12 +237,20 @@ angular.module('ui.sortable', [])
 
           angular.extend(opts, directiveOpts, uiSortableConfig, scope.uiSortable);
 
-          if (!angular.element.fn || !angular.element.fn.jquery) {
-            $log.error('ui.sortable: jQuery should be included before AngularJS!');
+          if (typeof jQuery === 'undefined') {
+            $log.error('ui.sortable: jQuery should be included (preferably) before AngularJS!');
             return;
+          } else if (!angular.element.fn || !angular.element.fn.jquery) {
+            element = jQuery(element);
           }
 
           function wireUp () {
+            element.on('$destroy', function () {
+              if (!!getSortableWidgetInstance(element)) {
+                element.sortable('destroy');
+              }
+            });
+
             // When we add or remove elements, we need the sortable to 'refresh'
             // so it can find the new/removed elements.
             scope.$watchCollection('ngModel', function() {
@@ -261,7 +269,7 @@ angular.module('ui.sortable', [])
                 // since the drag has started, the element will be
                 // absolutely positioned, so we check its siblings
                 var siblings = ui.item.siblings();
-                var sortableWidgetInstance = getSortableWidgetInstance(angular.element(e.target));
+                var sortableWidgetInstance = getSortableWidgetInstance(jQuery(e.target));
                 sortableWidgetInstance.floating = isFloating(siblings);
               }
 
